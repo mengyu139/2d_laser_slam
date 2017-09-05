@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 <launch>
 
-  <node pkg="map_server" type="map_server" name="map_server" args="/home/m1/Turtlebot_cooridoor/acml/map.yaml" >
+  <arg name="laser_global_frame" default="2d_map_frame" />
+  <!-- arg name="map_file_path" default="/home/m1/Turtlebot_cooridoor/acml/map.yaml" /-->
+  <arg name="map_file_path" default="/home/m1/map.yaml" />
   
-  <param name="frame_id" value="2d_map_frame"/>
+  <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file_path)" >
+  
+  <param name="frame_id" value="$(arg laser_global_frame)"/>
   
   </node>
 
@@ -30,7 +34,7 @@
 
   <param name="odom_frame_id" value="odom"/>
   <param name="base_frame_id" value="base_link"/>
-  <param name="global_frame_id" value="2d_map_frame"/>
+  <param name="global_frame_id" value="$(arg laser_global_frame)"/>
 
   <param name="initial_pose_x" value="0.0"/>
   <param name="initial_pose_y" value="0.0"/>
